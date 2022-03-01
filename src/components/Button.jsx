@@ -2,14 +2,14 @@ import classNames from "classnames";
 
 
 
-const Button = (props) =>{
+const Button = ({onClick,clName,outline,children}) =>{
     return ( <div>
-    <button className={classNames(
-        'button',
+    <button onClick={onClick} className={classNames(
+        'button',clName,
         {
-        'button--outline': props.style
+        'button--outline': outline
         })}
-     >{props.name}</button>
+     >{children}</button>
     </div>
     )
 }
