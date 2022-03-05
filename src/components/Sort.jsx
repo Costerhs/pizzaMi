@@ -13,7 +13,8 @@ export default function Sort({ items }) {
     document.body.addEventListener('click', handleClick);
   }, []);
 
-  const activeChos = items[spis];
+  const activeChos = items[spis].name;
+
   const choose = (num) => {
     setSpis((el) => (el = num));
     setSquare(false);
@@ -42,13 +43,13 @@ export default function Sort({ items }) {
         <div className="sort__popup">
           <ul>
             {items &&
-              items.map((el, index) => (
+              items.map((obj, index) => (
                 <li
                   key={index}
                   onClick={() => choose(index)}
                   className={spis === index ? 'active' : ''}>
                   {' '}
-                  {el}{' '}
+                  {obj.name}{' '}
                 </li>
               ))}
           </ul>

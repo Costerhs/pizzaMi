@@ -5,14 +5,13 @@ import Basket from './pages/Basket';
 import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-function App() {
-  const [pizzas, setPizzaItems] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:3000/db.json').then(({ data }) => {
-      setPizzaItems(data.pizzas);
-    });
+import { connect } from 'react-redux';
+import { SetItemsPizzasThunk } from './redux/reducer/pizzasReducer';
+function App({ SetItemsPizzasThunk, pizzas }) {
+  useEffect(async () => {
+    let response = await axios.get('http://localhost:3000/db.json');
+    console.log(response.data.pizzas);
+    SetItemsPizzasThunk();
   }, []);
 
   return (
@@ -29,4 +28,9 @@ function App() {
   );
 }
 
-export default App;
+let mapStateToProps = (state) => {
+  return {
+    pizzas: state.pizzas.items,
+  };
+};
+export default connect(mapStateToProps, { SetItemsPizzasThunk })(App);
