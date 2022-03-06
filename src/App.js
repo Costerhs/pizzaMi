@@ -3,15 +3,15 @@ import Home from './pages/Home';
 import Basket from './pages/Basket';
 
 import { Route, Routes } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { SetItemsPizzasThunk } from './redux/reducer/pizzasReducer';
-function App({ SetItemsPizzasThunk, pizzas }) {
-  useEffect(async () => {
-    let response = await axios.get('http://localhost:3000/db.json');
-    console.log(response.data.pizzas);
-    SetItemsPizzasThunk();
+
+function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(SetItemsPizzasThunk());
   }, []);
 
   return (
@@ -20,7 +20,7 @@ function App({ SetItemsPizzasThunk, pizzas }) {
 
       <div className="content">
         <Routes>
-          <Route path="/" element={<Home items={pizzas} />} />
+          <Route path="/" element={<Home />} />
           <Route exact path="/basket" element={<Basket />} />
         </Routes>
       </div>
@@ -28,9 +28,4 @@ function App({ SetItemsPizzasThunk, pizzas }) {
   );
 }
 
-let mapStateToProps = (state) => {
-  return {
-    pizzas: state.pizzas.items,
-  };
-};
-export default connect(mapStateToProps, { SetItemsPizzasThunk })(App);
+export default App;
