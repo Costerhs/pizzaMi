@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-export default function Sort({ items }) {
+export default function Sort({ items, activeSort, onClickSortType }) {
   const [square, setSquare] = useState(false);
-  const [spis, setSpis] = useState(0);
+  // const [spis, setSpis] = useState(0);
   const sort = useRef(null);
   const handleClick = (e) => {
     if (!e.path.includes(sort.current)) {
@@ -13,10 +13,12 @@ export default function Sort({ items }) {
     document.body.addEventListener('click', handleClick);
   }, []);
 
-  const activeChos = items[spis].name;
+  const activeChos = items.find((odj) => odj.type === activeSort).name;
 
-  const choose = (num) => {
-    setSpis((el) => (el = num));
+  const choose = (type) => {
+    if (onClickSortType) {
+      onClickSortType(type);
+    }
     setSquare(false);
   };
 
@@ -46,8 +48,8 @@ export default function Sort({ items }) {
               items.map((obj, index) => (
                 <li
                   key={index}
-                  onClick={() => choose(index)}
-                  className={spis === index ? 'active' : ''}>
+                  onClick={() => choose(obj)}
+                  className={obj.type === activeSort ? 'active' : ''}>
                   {' '}
                   {obj.name}{' '}
                 </li>
