@@ -7,6 +7,7 @@ import { setCategoryBy, setSortBy } from '../redux/reducer/filterReducer';
 import { useEffect } from 'react';
 import { SetItemsPizzasThunk } from '../redux/reducer/pizzasReducer';
 import Preloader from '../components/PizzaBlock/Preloader';
+import { addPizzaBasket } from '../redux/reducer/cartReducer';
 
 const typeName = ['Мясные', 'Вегетарианское', 'Гриль', 'Острые', 'Закрытые'];
 const categoryName = [
@@ -20,12 +21,15 @@ const Home = () => {
   const setActiveIndex = useCallback((index) => {
     dispatch(setCategoryBy(index));
   }, []);
-
+  const addForPizzaBasket = (obj) => {
+    dispatch(addPizzaBasket(obj));
+  };
   //state
   const items = useSelector((state) => state.pizzas.items);
   const cat = useSelector((state) => state.filter.category);
   const { category, sortBy } = useSelector(({ filter }) => filter);
   const isLoaded = useSelector((state) => state.pizzas.isLoaded);
+  const basketItems = useSelector(({ basket }) => basket.items);
 
   useEffect(() => {
     dispatch(SetItemsPizzasThunk(sortBy, category));
@@ -55,8 +59,10 @@ const Home = () => {
               .map((_, index) => <Preloader key={index} />)
           : items.map((obj) => (
               <PizzaBlock
+                onClickToAddPizza={addForPizzaBasket}
                 isLoaded={isLoaded}
                 key={obj.id}
+                addedCount={basketItems[obj.id] && basketItems[obj.id].length}
                 {...obj}
                 vid={['тонкое', 'традиционное']}
               />

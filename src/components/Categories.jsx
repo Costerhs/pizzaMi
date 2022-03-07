@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Categories = ({ items, onClick, activeLi }) => {
-  console.log(activeLi);
   return (
     <div className="categories">
       <ul>

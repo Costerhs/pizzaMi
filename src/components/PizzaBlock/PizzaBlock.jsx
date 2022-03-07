@@ -2,13 +2,15 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const PizzaBlock = ({ name, sizes, price, types, imageUrl }) => {
+const PizzaBlock = ({ id, name, sizes, price, types, imageUrl, onClickToAddPizza, addedCount }) => {
+  //loacl state
+
   const availableTypes = ['тонкое', 'традиционное'];
   const availableSizes = [26, 30, 40];
 
   const [activeSize, setActiveSize] = useState(0);
   const [type, setType] = useState(0);
-
+  //obj
   const typesLi = availableTypes.map((el, index) => (
     <li
       className={classNames({
@@ -37,7 +39,18 @@ const PizzaBlock = ({ name, sizes, price, types, imageUrl }) => {
       {el} см.
     </li>
   ));
-
+  //func
+  const addPizza = () => {
+    const obj = {
+      id,
+      name,
+      imageUrl,
+      price,
+      size: availableSizes[activeSize],
+      type: availableTypes[type],
+    };
+    onClickToAddPizza(obj);
+  };
   return (
     <div className="pizza-block">
       <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
@@ -48,7 +61,7 @@ const PizzaBlock = ({ name, sizes, price, types, imageUrl }) => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽ </div>
-        <div className="button button--outline button--add">
+        <div onClick={addPizza} className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -61,7 +74,7 @@ const PizzaBlock = ({ name, sizes, price, types, imageUrl }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
+          {addedCount && <i>{addedCount}</i>}
         </div>
       </div>
     </div>

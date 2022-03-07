@@ -5,7 +5,8 @@ export default function Sort({ items, activeSort, onClickSortType }) {
   // const [spis, setSpis] = useState(0);
   const sort = useRef(null);
   const handleClick = (e) => {
-    if (!e.path.includes(sort.current)) {
+    const path = e.path || (e.composedPath && e.composedPath());
+    if (!path.includes(sort.current)) {
       setSquare((el) => (el = false));
     }
   };
