@@ -62,7 +62,7 @@ const Home = () => {
                 onClickToAddPizza={addForPizzaBasket}
                 isLoaded={isLoaded}
                 key={obj.id}
-                addedCount={basketItems[obj.id] && basketItems[obj.id].length}
+                addedCount={basketItems[obj.id] && basketItems[obj.id].items.length}
                 {...obj}
                 vid={['тонкое', 'традиционное']}
               />

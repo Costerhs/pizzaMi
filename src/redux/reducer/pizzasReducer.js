@@ -31,9 +31,9 @@ export const setLoad = (load) => ({ type: SET_IS_LOAD, load });
 export const SetItemsPizzasThunk = (sortBy, category) => async (dispatch) => {
   dispatch(setLoad(true));
   let response = await axios.get(
-    `http://localhost:3001/pizzas?${category !== null ? `category=${category}` : ''}&_sort=${
-      sortBy.type
-    }&_order=${sortBy.order}`,
+    `/pizzas?${category !== null ? `category=${category}` : ''}&_sort=${sortBy.type}&_order=${
+      sortBy.order
+    }`,
   );
 
   dispatch(setItemsPizza(response.data));
