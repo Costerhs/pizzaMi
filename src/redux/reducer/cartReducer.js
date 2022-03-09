@@ -60,7 +60,7 @@ const basketReducer = (state = initialize, action) => {
       const newItems = {
         ...state.items,
       };
-      console.log(newItems[0].totalPrice + ' +' + action.payload);
+
       const currentTotalPrice = newItems[action.payload].totalPrice;
 
       const currentTotalCount = newItems[action.payload].items.length;
