@@ -40,7 +40,3 @@ export const SetItemsPizzasThunk = (sortBy, category) => async (dispatch) => {
   dispatch(setLoad(false));
 };
 export default pizzasReducer;
-
-// axios.get('http://localhost:3000/db.json').then(({ data }) => {
-//   dispatch(setItemsPizza(data.pizzas));
-// });

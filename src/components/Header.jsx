@@ -4,7 +4,7 @@ import logoSvg from './../assets/img/pizza-logo.svg';
 import Button from './Button';
 
 const Header = () => {
-  const { totalPrice, totalCount, items } = useSelector(({ basket }) => basket);
+  const { totalPrice, totalCount } = useSelector(({ basket }) => basket);
   return (
     <div className="header">
       <div className="container">
@@ -18,7 +18,6 @@ const Header = () => {
           </div>
         </NavLink>
         <div className="header__cart">
-          {/* <a href="/cart.html" className="button button--cart"> */}
           <NavLink to={'/basket'}>
             <Button clName="button--cart">
               <span>{totalPrice} ₽</span>
